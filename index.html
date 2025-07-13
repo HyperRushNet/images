@@ -50,8 +50,6 @@
             background-color: #ccc;
         }
     </style>
-    <!-- Invoegen van de keyboard.js bibliotheek -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/keyboardjs/2.6.0/keyboard.min.js"></script>
 </head>
 <body>
     <div class="game-container">
@@ -61,80 +59,39 @@
         <!-- Virtuele knoppen -->
         <div class="virtual-buttons">
             <div class="row">
-                <button class="button" id="up" onmousedown="startKey('ArrowUp')" onmouseup="stopKey('ArrowUp')">↑</button>
+                <button class="button" id="up" onmousedown="simulateKey('ArrowUp')">↑</button>
             </div>
             <div class="row">
-                <button class="button" id="left" onmousedown="startKey('ArrowLeft')" onmouseup="stopKey('ArrowLeft')">←</button>
-                <button class="button" id="down" onmousedown="startKey('ArrowDown')" onmouseup="stopKey('ArrowDown')">↓</button>
-                <button class="button" id="right" onmousedown="startKey('ArrowRight')" onmouseup="stopKey('ArrowRight')">→</button>
+                <button class="button" id="left" onmousedown="simulateKey('ArrowLeft')">←</button>
+                <button class="button" id="down" onmousedown="simulateKey('ArrowDown')">↓</button>
+                <button class="button" id="right" onmousedown="simulateKey('ArrowRight')">→</button>
             </div>
             <div class="row">
-                <button class="button" id="a" onmousedown="startKey('a')" onmouseup="stopKey('a')">A</button>
-                <button class="button" id="d" onmousedown="startKey('d')" onmouseup="stopKey('d')">D</button>
-                <button class="button" id="w" onmousedown="startKey('w')" onmouseup="stopKey('w')">W</button>
-                <button class="button" id="space" onmousedown="startKey(' ')" onmouseup="stopKey(' ')">Space</button>
+                <button class="button" id="a" onmousedown="simulateKey('a')">A</button>
+                <button class="button" id="d" onmousedown="simulateKey('d')">D</button>
+                <button class="button" id="w" onmousedown="simulateKey('w')">W</button>
+                <button class="button" id="space" onmousedown="simulateKey(' ')">Space</button>
             </div>
         </div>
     </div>
 
     <script>
-        var keysPressed = {};
-
-        // Functie om de toets in te drukken (keydown) met behulp van keyboard.js
-        function startKey(key) {
-            if (!keysPressed[key]) {
-                keysPressed[key] = true;
-                keyboardJS.press(key);  // Gebruik keyboard.js om de toets in te drukken
-            }
+        // Simuleer de toets indrukken
+        function simulateKey(key) {
+            var event = new KeyboardEvent('keydown', {
+                key: key,
+                code: key,
+                keyCode: key.charCodeAt(0),
+                which: key.charCodeAt(0),
+                bubbles: true
+            });
+            document.dispatchEvent(event);
         }
 
-        // Functie om de toets los te laten (keyup) met behulp van keyboard.js
-        function stopKey(key) {
-            if (keysPressed[key]) {
-                keysPressed[key] = false;
-                keyboardJS.release(key);  // Gebruik keyboard.js om de toets los te laten
-            }
-        }
-
-        // Gebruik keyboard.js om specifieke acties te verbinden met toetsen
-        keyboardJS.bind('ArrowUp', function() {
-            console.log('Up arrow key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
-        });
-
-        keyboardJS.bind('ArrowDown', function() {
-            console.log('Down arrow key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
-        });
-
-        keyboardJS.bind('ArrowLeft', function() {
-            console.log('Left arrow key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
-        });
-
-        keyboardJS.bind('ArrowRight', function() {
-            console.log('Right arrow key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
-        });
-
-        keyboardJS.bind('a', function() {
-            console.log('A key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
-        });
-
-        keyboardJS.bind('d', function() {
-            console.log('D key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
-        });
-
-        keyboardJS.bind('w', function() {
-            console.log('W key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
-        });
-
-        keyboardJS.bind(' ', function() {
-            console.log('Space key pressed');
-            // Voeg hier eventueel een extra actie toe voor deze toets
+        // Voeg eventueel extra events toe om te reageren op de keypress
+        document.addEventListener('keydown', function(event) {
+            console.log('Key pressed: ' + event.key);
+            // Hier kan extra logica worden toegevoegd om acties te ondernemen
         });
     </script>
 </body>
