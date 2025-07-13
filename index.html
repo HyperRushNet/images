@@ -53,8 +53,10 @@
 </head>
 <body>
     <div class="game-container">
+        <!-- Game iframe -->
         <iframe src="https://hyperrushnet.github.io/action-games/alienhominid/" width="800" height="600" frameborder="0" id="game-frame"></iframe>
 
+        <!-- Virtual Controls -->
         <div class="virtual-buttons">
             <div class="row">
                 <button class="button" id="up" onclick="sendKey('ArrowUp')">↑</button>
@@ -68,18 +70,19 @@
                 <button class="button" id="a" onclick="sendKey('a')">A</button>
                 <button class="button" id="d" onclick="sendKey('d')">D</button>
                 <button class="button" id="w" onclick="sendKey('w')">W</button>
-                <button class="button" id="s" onclick="sendKey('s')">S</button>
+                <button class="button" id="space" onclick="sendKey(' ')">Space</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Functie om een keyboardevent te creëren en naar het iframe te sturen
+        // Simuleer de toetsenbordinvoer en stuur ze naar het iframe
         function sendKey(key) {
             var iframe = document.getElementById('game-frame');
             var iframeWindow = iframe.contentWindow;
-
-            var event = new KeyboardEvent('keydown', {
+            
+            // Trigger een keydown event
+            var keyDownEvent = new KeyboardEvent('keydown', {
                 key: key,
                 code: key,
                 keyCode: key.charCodeAt(0),
@@ -87,9 +90,23 @@
                 bubbles: true,
                 cancelable: true
             });
-
-            // Injecteer het toetsenbord event in het iframe
-            iframeWindow.document.dispatchEvent(event);
+            
+            // Injecteer het toetsenbord event voor 'key down'
+            iframeWindow.document.dispatchEvent(keyDownEvent);
+            
+            // Zorg ervoor dat de key-up wordt gestuurd na een korte tijd (voor de game timing)
+            setTimeout(function() {
+                var keyUpEvent = new KeyboardEvent('keyup', {
+                    key: key,
+                    code: key,
+                    keyCode: key.charCodeAt(0),
+                    which: key.charCodeAt(0),
+                    bubbles: true,
+                    cancelable: true
+                });
+                
+                iframeWindow.document.dispatchEvent(keyUpEvent);
+            }, 100); // Tijd in milliseconden voor het loslaten van de toets
         }
     </script>
 </body>
