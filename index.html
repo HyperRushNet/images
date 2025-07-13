@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Hominid - Virtual Controls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+            margin: 0;
+            color: white;
+        }
+        .game-container {
+            text-align: center;
+            position: relative;
+        }
+        .virtual-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+        .button {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            background-color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .button:hover {
+            background-color: #888;
+        }
+        .button:active {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <iframe src="https://hyperrushnet.github.io/action-games/alienhominid/" width="800" height="600" frameborder="0" id="game-frame"></iframe>
+
+        <div class="virtual-buttons">
+            <div class="row">
+                <button class="button" id="up" onclick="sendKey('ArrowUp')">↑</button>
+            </div>
+            <div class="row">
+                <button class="button" id="left" onclick="sendKey('ArrowLeft')">←</button>
+                <button class="button" id="down" onclick="sendKey('ArrowDown')">↓</button>
+                <button class="button" id="right" onclick="sendKey('ArrowRight')">→</button>
+            </div>
+            <div class="row">
+                <button class="button" id="a" onclick="sendKey('a')">A</button>
+                <button class="button" id="d" onclick="sendKey('d')">D</button>
+                <button class="button" id="w" onclick="sendKey('w')">W</button>
+                <button class="button" id="s" onclick="sendKey('s')">S</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Functie om een keyboardevent te creëren en naar het iframe te sturen
+        function sendKey(key) {
+            var iframe = document.getElementById('game-frame');
+            var iframeWindow = iframe.contentWindow;
+
+            var event = new KeyboardEvent('keydown', {
+                key: key,
+                code: key,
+                keyCode: key.charCodeAt(0),
+                which: key.charCodeAt(0),
+                bubbles: true,
+                cancelable: true
+            });
+
+            // Injecteer het toetsenbord event in het iframe
+            iframeWindow.document.dispatchEvent(event);
+        }
+    </script>
+</body>
+</html>
