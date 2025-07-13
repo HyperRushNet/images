@@ -1,98 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alien Hominid - Virtual Controls</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #333;
-            margin: 0;
-            color: white;
-        }
-        .game-container {
-            text-align: center;
-            position: relative;
-        }
-        .virtual-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .row {
-            display: flex;
-            gap: 10px;
-        }
-        .button {
-            width: 60px;
-            height: 60px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            background-color: #555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .button:hover {
-            background-color: #888;
-        }
-        .button:active {
-            background-color: #ccc;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Game Thumbnails Repository</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      padding: 40px;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      color: #222;
+    }
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <div class="game-container">
-        <!-- Game iframe -->
-        <iframe src="https://hyperrushnet.github.io/action-games/alienhominid/" width="800" height="600" frameborder="0" id="game-frame"></iframe>
-
-        <!-- Virtuele knoppen -->
-        <div class="virtual-buttons">
-            <div class="row">
-                <button class="button" id="up" onmousedown="simulateKey('ArrowUp')">↑</button>
-            </div>
-            <div class="row">
-                <button class="button" id="left" onmousedown="simulateKey('ArrowLeft')">←</button>
-                <button class="button" id="down" onmousedown="simulateKey('ArrowDown')">↓</button>
-                <button class="button" id="right" onmousedown="simulateKey('ArrowRight')">→</button>
-            </div>
-            <div class="row">
-                <button class="button" id="a" onmousedown="simulateKey('a')">A</button>
-                <button class="button" id="d" onmousedown="simulateKey('d')">D</button>
-                <button class="button" id="w" onmousedown="simulateKey('w')">W</button>
-                <button class="button" id="space" onmousedown="simulateKey(' ')">Space</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Simuleer de toets indrukken
-        function simulateKey(key) {
-            var event = new KeyboardEvent('keydown', {
-                key: key,
-                code: key,
-                keyCode: key.charCodeAt(0),
-                which: key.charCodeAt(0),
-                bubbles: true
-            });
-            document.dispatchEvent(event);
-        }
-
-        // Voeg eventueel extra events toe om te reageren op de keypress
-        document.addEventListener('keydown', function(event) {
-            console.log('Key pressed: ' + event.key);
-            // Hier kan extra logica worden toegevoegd om acties te ondernemen
-        });
-    </script>
+  <h1>Game Thumbnails Repository</h1>
+  <p>This repository is used to store thumbnail images for the games featured on the <a href="https://hyperrushnet.github.io" target="_blank">hyperrushnet.github.io</a> website.</p>
+  <p>Each image corresponds to a game card displayed on the site. Do not delete or rename any files unless you know what you're doing.</p>
 </body>
 </html>
