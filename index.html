@@ -59,43 +59,52 @@
         <!-- Virtual Controls -->
         <div class="virtual-buttons">
             <div class="row">
-                <button class="button" id="up" onclick="sendKey('ArrowUp')">↑</button>
+                <button class="button" id="up" onmousedown="startKey('ArrowUp')" onmouseup="stopKey('ArrowUp')">↑</button>
             </div>
             <div class="row">
-                <button class="button" id="left" onclick="sendKey('ArrowLeft')">←</button>
-                <button class="button" id="down" onclick="sendKey('ArrowDown')">↓</button>
-                <button class="button" id="right" onclick="sendKey('ArrowRight')">→</button>
+                <button class="button" id="left" onmousedown="startKey('ArrowLeft')" onmouseup="stopKey('ArrowLeft')">←</button>
+                <button class="button" id="down" onmousedown="startKey('ArrowDown')" onmouseup="stopKey('ArrowDown')">↓</button>
+                <button class="button" id="right" onmousedown="startKey('ArrowRight')" onmouseup="stopKey('ArrowRight')">→</button>
             </div>
             <div class="row">
-                <button class="button" id="a" onclick="sendKey('a')">A</button>
-                <button class="button" id="d" onclick="sendKey('d')">D</button>
-                <button class="button" id="w" onclick="sendKey('w')">W</button>
-                <button class="button" id="space" onclick="sendKey(' ')">Space</button>
+                <button class="button" id="a" onmousedown="startKey('a')" onmouseup="stopKey('a')">A</button>
+                <button class="button" id="d" onmousedown="startKey('d')" onmouseup="stopKey('d')">D</button>
+                <button class="button" id="w" onmousedown="startKey('w')" onmouseup="stopKey('w')">W</button>
+                <button class="button" id="space" onmousedown="startKey(' ')" onmouseup="stopKey(' ')">Space</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Simuleer de toetsenbordinvoer en stuur ze naar het iframe
-        function sendKey(key) {
-            var iframe = document.getElementById('game-frame');
-            var iframeWindow = iframe.contentWindow;
-            
-            // Trigger een keydown event
-            var keyDownEvent = new KeyboardEvent('keydown', {
-                key: key,
-                code: key,
-                keyCode: key.charCodeAt(0),
-                which: key.charCodeAt(0),
-                bubbles: true,
-                cancelable: true
-            });
-            
-            // Injecteer het toetsenbord event voor 'key down'
-            iframeWindow.document.dispatchEvent(keyDownEvent);
-            
-            // Zorg ervoor dat de key-up wordt gestuurd na een korte tijd (voor de game timing)
-            setTimeout(function() {
+        var keysPressed = {};
+
+        // Functie om een toets in te drukken (keydown)
+        function startKey(key) {
+            if (!keysPressed[key]) {
+                keysPressed[key] = true;
+                var iframe = document.getElementById('game-frame');
+                var iframeWindow = iframe.contentWindow;
+
+                var keyDownEvent = new KeyboardEvent('keydown', {
+                    key: key,
+                    code: key,
+                    keyCode: key.charCodeAt(0),
+                    which: key.charCodeAt(0),
+                    bubbles: true,
+                    cancelable: true
+                });
+
+                iframeWindow.document.dispatchEvent(keyDownEvent);
+            }
+        }
+
+        // Functie om een toets los te laten (keyup)
+        function stopKey(key) {
+            if (keysPressed[key]) {
+                keysPressed[key] = false;
+                var iframe = document.getElementById('game-frame');
+                var iframeWindow = iframe.contentWindow;
+
                 var keyUpEvent = new KeyboardEvent('keyup', {
                     key: key,
                     code: key,
@@ -104,9 +113,9 @@
                     bubbles: true,
                     cancelable: true
                 });
-                
+
                 iframeWindow.document.dispatchEvent(keyUpEvent);
-            }, 100); // Tijd in milliseconden voor het loslaten van de toets
+            }
         }
     </script>
 </body>
