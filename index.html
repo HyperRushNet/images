@@ -50,13 +50,15 @@
             background-color: #ccc;
         }
     </style>
+    <!-- Invoegen van de keyboard.js bibliotheek -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/keyboardjs/2.6.0/keyboard.min.js"></script>
 </head>
 <body>
     <div class="game-container">
         <!-- Game iframe -->
         <iframe src="https://hyperrushnet.github.io/action-games/alienhominid/" width="800" height="600" frameborder="0" id="game-frame"></iframe>
 
-        <!-- Virtual Controls -->
+        <!-- Virtuele knoppen -->
         <div class="virtual-buttons">
             <div class="row">
                 <button class="button" id="up" onmousedown="startKey('ArrowUp')" onmouseup="stopKey('ArrowUp')">↑</button>
@@ -78,45 +80,62 @@
     <script>
         var keysPressed = {};
 
-        // Functie om een toets in te drukken (keydown)
+        // Functie om de toets in te drukken (keydown) met behulp van keyboard.js
         function startKey(key) {
             if (!keysPressed[key]) {
                 keysPressed[key] = true;
-                var iframe = document.getElementById('game-frame');
-                var iframeWindow = iframe.contentWindow;
-
-                var keyDownEvent = new KeyboardEvent('keydown', {
-                    key: key,
-                    code: key,
-                    keyCode: key.charCodeAt(0),
-                    which: key.charCodeAt(0),
-                    bubbles: true,
-                    cancelable: true
-                });
-
-                iframeWindow.document.dispatchEvent(keyDownEvent);
+                keyboardJS.press(key);  // Gebruik keyboard.js om de toets in te drukken
             }
         }
 
-        // Functie om een toets los te laten (keyup)
+        // Functie om de toets los te laten (keyup) met behulp van keyboard.js
         function stopKey(key) {
             if (keysPressed[key]) {
                 keysPressed[key] = false;
-                var iframe = document.getElementById('game-frame');
-                var iframeWindow = iframe.contentWindow;
-
-                var keyUpEvent = new KeyboardEvent('keyup', {
-                    key: key,
-                    code: key,
-                    keyCode: key.charCodeAt(0),
-                    which: key.charCodeAt(0),
-                    bubbles: true,
-                    cancelable: true
-                });
-
-                iframeWindow.document.dispatchEvent(keyUpEvent);
+                keyboardJS.release(key);  // Gebruik keyboard.js om de toets los te laten
             }
         }
+
+        // Gebruik keyboard.js om specifieke acties te verbinden met toetsen
+        keyboardJS.bind('ArrowUp', function() {
+            console.log('Up arrow key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
+
+        keyboardJS.bind('ArrowDown', function() {
+            console.log('Down arrow key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
+
+        keyboardJS.bind('ArrowLeft', function() {
+            console.log('Left arrow key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
+
+        keyboardJS.bind('ArrowRight', function() {
+            console.log('Right arrow key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
+
+        keyboardJS.bind('a', function() {
+            console.log('A key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
+
+        keyboardJS.bind('d', function() {
+            console.log('D key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
+
+        keyboardJS.bind('w', function() {
+            console.log('W key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
+
+        keyboardJS.bind(' ', function() {
+            console.log('Space key pressed');
+            // Voeg hier eventueel een extra actie toe voor deze toets
+        });
     </script>
 </body>
 </html>
